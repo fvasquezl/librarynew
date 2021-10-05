@@ -2,11 +2,11 @@
 
 
 @section('content-header')
-    @include('layouts.partials.contentHeader',$info =[
-           'title' =>'Usuarios',
-           'subtitle' => 'Administracion',
-           'breadCrumbs' =>['users','index']
-           ])
+@include('layouts.partials.contentHeader',$info =[
+'title' =>'Usuarios',
+'subtitle' => 'Administracion',
+'breadCrumbs' =>['users','index']
+])
 @stop
 
 @push('styles')
@@ -57,25 +57,25 @@
 
                                 <td>
                                     @can('view', $user)
-                                        <a href="{{ route('admin.users.show',$user)}}" class="btn btn-sm btn-default">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
+                                    <a href="{{ route('admin.users.show',$user)}}" class="btn btn-sm btn-default">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
                                     @endcan
 
                                     @can('update', $user)
-                                        <a href="{{ route('admin.users.edit',$user) }}" class="btn btn-sm btn-info">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
+                                    <a href="{{ route('admin.users.edit',$user) }}" class="btn btn-sm btn-info">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
                                     @endcan
 
                                     @can('delete', $user)
-                                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
-                                            style="display:inline">
-                                            @csrf @method('DELETE')
-                                            <button class="btn btn-sm btn-danger"
-                                                onclick="return confirm('Estas seguro de querer eliminar este usuario')">
-                                                <i class="fas fa-trash-alt"></i></button>
-                                        </form>
+                                    <form action="{{ route('admin.users.destroy', $user) }}" method="POST"
+                                        style="display:inline">
+                                        @csrf @method('DELETE')
+                                        <button class="btn btn-sm btn-danger"
+                                            onclick="return confirm('Estas seguro de querer eliminar este usuario')">
+                                            <i class="fas fa-trash-alt"></i></button>
+                                    </form>
                                     @endcan
 
                                 </td>
@@ -83,7 +83,6 @@
                             @endforeach
                         </tbody>
                     </table>
-                    {{ $users->render() }}
                 </div>
             </div>
         </div>

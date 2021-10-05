@@ -27,7 +27,7 @@ class UsersController extends Controller
     public function index()
     {
 
-        $users = User::allowed()->paginate();
+        $users = User::get();
 
         return view('admin.users.index', compact('users'));
     }
@@ -48,9 +48,8 @@ class UsersController extends Controller
         $permissions = Permission::pluck('name', 'id');
         return view(
             'admin.users.create',
-            compact('user', 'roles', 'permissions','departments')
+            compact('user', 'roles', 'permissions', 'departments')
         );
-
     }
 
 
@@ -65,7 +64,7 @@ class UsersController extends Controller
 
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'username' => ['required', 'string', 'max:255','unique:users'],
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
         ]);
 
@@ -85,12 +84,11 @@ class UsersController extends Controller
             $user->departments()->attach($request->departments);
         }
 
-        UserWasCreated::dispatch($user,$data['password']);
+        UserWasCreated::dispatch($user, $data['password']);
 
         return redirect()
             ->route('admin.users.index')
             ->with('info', 'El Usuario ha sido creado con exito');
-
     }
 
 
@@ -114,14 +112,14 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         $departments = Department::get();
         $roles = Role::with('permissions')->get();
         $permissions = Permission::pluck('name', 'id');
         return view(
             'admin.users.edit',
-            compact('user', 'roles', 'permissions','departments')
+            compact('user', 'roles', 'permissions', 'departments')
         );
     }
 
@@ -134,12 +132,12 @@ class UsersController extends Controller
      */
     public function update(UpdateRequest $request, User $user)
     {
-        $this->authorize('update',$user);
+        $this->authorize('update', $user);
 
         $request->updateUser($user);
 
-        return redirect()->route('admin.users.edit',$user)
-        ->with('info', 'Usuario actualizado con exito');
+        return redirect()->route('admin.users.edit', $user)
+            ->with('info', 'Usuario actualizado con exito');
     }
 
 
@@ -150,7 +148,7 @@ class UsersController extends Controller
      */
     public function destroy(User $user)
     {
-        $this->authorize('delete',$user);
+        $this->authorize('delete', $user);
 
         $user->departments()->detach();
 
