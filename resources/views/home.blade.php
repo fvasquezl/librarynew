@@ -55,7 +55,7 @@
                             @foreach($posts as $post)
                             <tr>
                                 <td>{{$post->id}}</td>
-                                <td>{{ Str::limit($post->title, 40) }}</td>
+                                <td>{{$post->title}}</td>
                                 <td>{!!$post->present()->excerpt()!!}</td>
                                 <td>{{$post->present()->departments()}}</td>
                                 <td>{{$post->present()->publishedAt()}}</td>
