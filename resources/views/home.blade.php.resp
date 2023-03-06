@@ -42,20 +42,24 @@
                     <table class="table table-bordered table-hover nowrap" id="postsTable" style="width:100%">
                         <thead>
                             <tr>
-				<th>Id</th>
-				<th>Acciones</th>
+                                <th>Id</th>
                                 <th>Titulo</th>
                                 <th>Extracto</th>
                                 <th>Asignado_a</th>
                                 <th>F_Publicacion</th>
                                 <th>Categoria</th>
+                                <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($posts as $post)
                             <tr>
-				<td>{{$post->id}}</td>
-
+                                <td>{{$post->id}}</td>
+                                <td>{{$post->title}}</td>
+                                <td>{!!$post->present()->excerpt()!!}</td>
+                                <td>{{$post->present()->departments()}}</td>
+                                <td>{{$post->present()->publishedAt()}}</td>
+                                <td>{{$post->present()->categories()}}</td>
                                 <td>
                                     <a href="{{ route('posts.show',$post) }}" class="btn btn-sm btn-default"
                                         target="_blank">
@@ -77,13 +81,6 @@
                                     </form>
                                     @endcan
                                 </td>
-
-
-                                <td>{{$post->title}}</td>
-                                <td>{!!$post->present()->excerpt()!!}</td>
-                                <td>{{$post->present()->departments()}}</td>
-                                <td>{{$post->present()->publishedAt()}}</td>
-                                <td>{{$post->present()->categories()}}</td>
                             </tr>
                             @endforeach
                         </tbody>
